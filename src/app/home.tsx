@@ -1,12 +1,6 @@
 import Link from 'next/link';
 import { posts } from "../data/posts";
 
-export async function generateStaticParams() {
-  return posts.map((post) => ({
-    id: post.id.toString(),
-  }));
-}
-
 export default function Home() {
   return (
     <div className="min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
@@ -21,10 +15,6 @@ export default function Home() {
                     {post.title}
                   </Link>
                 </h3>
-                <p className="text-sm text-gray-600">
-                  By {post.author} on {post.date}
-                </p>
-                <p>{post.content}</p>
               </li>
             ))}
           </ul>
