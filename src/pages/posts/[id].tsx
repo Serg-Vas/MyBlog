@@ -1,30 +1,44 @@
-import { notFound } from 'next/navigation';
-import { posts } from '../../data/posts';
+import { GetStaticProps, GetStaticPaths } from 'next';
+import { posts } from '@/data/posts';
 
-export async function generateStaticParams() {
-  return posts.map((post) => ({
-    id: post.id.toString(),
-  }));
+interface PostProps {
+  post: {
+    id: string;
+    title: string;
+    content: string;
+    author: string;
+    date: string;
+  };
 }
 
-export default function BlogPost({ params }) {
-  const post = posts.find((post) => post.id.toString() === params.id);
-
-  if (!post) {
-    notFound();
-  }
+export default function Post({ post }: PostProps) {
+  if (!post) return <div>Post not found</div>;
 
   return (
-    <div className="min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 items-center sm:items-start">
-        <section className="w-full">
-          <h2 className="text-2xl font-bold mb-4">{post.title}</h2>
-          <p className="text-sm text-gray-600">
-            By {post.author} on {post.date}
-          </p>
-          <p>{post.content}</p>
-        </section>
-      </main>
+    <div>
+      <h1>{post.title}</h1>
+      <p><strong>Author:</strong> {post.author}</p>
+      <p><strong>Date:</strong> {post.date}</p>
+      <p>{post.content}</p>
     </div>
   );
 }
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const paths = posts.map((post) => ({
+    params: { id: post.id.toString() },
+  }));
+
+  return { paths, fallback: false };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const id = params?.id?.toString();
+  const post = posts.find((p) => p.id.toString() === id);
+
+  return {
+    props: {
+      post: post || null,
+    },
+  };
+};
