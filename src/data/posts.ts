@@ -14,5 +14,12 @@ export const posts = [
     author: "Author 2",
     date: "2023-10-02",
   },
+  {
+    id: 3,
+    title: "Hi",
+    content: "My name is John Doe",
+    author: "John Doe",
+    date: "2025-04-03",
+  },
   // Add more posts as needed
 ];
