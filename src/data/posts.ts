@@ -21,5 +21,12 @@ export const posts = [
     author: "John Doe",
     date: "2025-04-03",
   },
+  {
+    id: 4,
+    title: "My Summer Vacation",
+    content: "This summer, I went to the beach and had a lot of fun.",
+    author: "John Doe",
+    date: "2024-09-03",
+  },
   // Add more posts as needed
 ];
