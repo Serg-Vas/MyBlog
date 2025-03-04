@@ -1,0 +1,1 @@
+sudo ln -s /etc/nginx/sites-available/nextjs /etc/nginx/sites-enabled/nextjs
